@@ -22,19 +22,19 @@
 # Optional, defaulted in code.
 # 
 # Play at Festival's default speed. Default.
-# base_stretch = 1.0
+# stretch = 1.0
 #
 # Speed the voice up
-# base_stretch = 0.5
+# stretch = 0.5
 #
 # Slow the voice down
-# base_stretch = 1.5
+# stretch = 1.5
 
 # Mandatory.
 # The voices configuration specifies what voices are loaded, and
 # whether they have a custom stretch value.
 #
-# To load a single voice, using the default stretch (or base_stretch if set)
+# To load a single voice, using the default stretch (or stretch if set)
 # voices = [ { name = "kal_diphone" } ]
 #
 # To load a single voice, with a custom stretch
@@ -66,6 +66,11 @@ voices_override = {}
 # To use random selection every time for every redemption. voices_override still
 # applies.
 # selection = random
+
+# Optional.
+# Replace underscores in names with spaces so that Festival doesn't read out the
+# underscore. Default is to not replace them.
+# replace_name_underscores = false
 
 [phone]
 # Mandatory.

@@ -28,10 +28,12 @@ def create_audio_file(caller: str, message: str, config: TTStreamBotConfig) -> s
         logger.warn(f"Cannot change stretch of {voice.name}")
     else:
         stretch = (
-            voice.stretch if voice.stretch is not None else config.festival.base_stretch
+            voice.stretch if voice.stretch is not None else config.festival.stretch
         )
         fec(f"(Parameter.set 'Duration_Stretch {stretch})")
 
+    if config.festival.replace_name_underscores:
+        caller = caller.replace("_", " ")
     wavfile = festival.textToWavFile(f"{caller} said {message}")
     logger.debug(f"Festival created {wavfile}")
     return wavfile
@@ -100,7 +102,7 @@ def render_configuration_festival(config: TTStreamBotConfig) -> None:
                 [
                     username,
                     voice.name,
-                    voice.stretch if voice.stretch else config.festival.base_stretch,
+                    voice.stretch if voice.stretch else config.festival.stretch,
                 ]
             )
         click.secho(message="Voices override", fg="blue")
@@ -108,6 +110,10 @@ def render_configuration_festival(config: TTStreamBotConfig) -> None:
     else:
         click.secho(message="No overrides present for redemptions")
     click.secho(message=f"Voice selection: {config.festival.selection.name}", fg="blue")
+    click.secho(
+        message=f"Replace underscores in names: {config.festival.replace_name_underscores}",
+        fg="blue",
+    )
 
 
 def render_configuration_phone(config: TTStreamBotConfig) -> None:

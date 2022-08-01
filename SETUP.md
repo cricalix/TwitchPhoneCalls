@@ -10,6 +10,7 @@ pip install -r requirements.txt
 ```
 
 > **Warning**
+>
 > As of 2022-08-01 this code does not work correctly; modifications are needed to the baresipy library. In short, change the `self._login` assignment to set `;regint=0` so that baresip does not try to register an account.
 
 ## Getting a voice list
@@ -64,6 +65,7 @@ python3 bot.py
 The bot will authenticate to Twitch with the credentials provided, and open a browser window for you to authenticate the bot's access to your account. Once authenticated, it will connected to Twitch's PubSub and start listening for redemption events.
 
 > **Note**
+>
 > If the browser window does not say "Thanks for Authenticating with pyTwitchAPI", and instead has a connection error, the port number in the Twitch Application registration form is wrong. Edit that, set it to `17563`. Restart the bot.
 
 On startup, the bot will print out the configuration from the `.toml` file. It will look something like
@@ -101,3 +103,32 @@ Voice selection: hashed
 ║ Config dir    ║ /home/dhill/.config/ttstreambot/    ║
 ╚═══════════════╩═════════════════════════════════════╝
 ```
+
+# Known error messages
+
+## Incorrect auth credentials
+```
+twitchAPI.pubsub - DEBUG - got response for nonce 956461d3-e2a7-4c4b-9964-7f69f2e8456d: PubSubResponseError.BAD_AUTH
+```
+
+There's something wrong with your username / client_id / client_secret settings.
+
+## Bad file descriptor on Ctrl-C/bot exit
+
+```
+baresipy:quit:185 - INFO - Exiting
+Exception in thread Thread-1:
+Traceback (most recent call last):
+...
+OSError: [Errno 9] Bad file descriptor
+```
+
+The thread running baresip doesn't have handling for the subprocess exiting. Should only happen on bot exit, and it's harmless.
+
+## Incorrect DNS hostname for a SIP destination
+
+```
+baresipy:handle_call_ended:307 - DEBUG - Reason: Destination address required
+```
+
+Check that you can resolve the `host` portion of the destination configured for a redemption.

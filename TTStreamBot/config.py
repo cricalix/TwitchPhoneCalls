@@ -72,10 +72,13 @@ class FestivalConfig:
     voices_override: dict[str, Voice]
 
     # What stretch to apply by default to voices
-    base_stretch: float | None = 1.0
+    stretch: float | None = 1.0
 
     # How to select a voice, default is hashring
     selection: VoiceSelection = VoiceSelection.hashed
+
+    # Whether to make names easier for Festival to read
+    replace_name_underscores: bool = False
 
     class Config:
         # Allow the self._hr bit.
@@ -108,16 +111,23 @@ class FestivalConfig:
 
 @dc.dataclass
 class Destination:
+    """Defines a destination for SIP usage"""
+
+    # Hostname (fully qualified) or IP address to send the SIP call to
     host: str
+    # Username at the host that should receive the call.
     user: str
 
     @property
     def sip(self) -> str:
+        """Build a sip address for this destination"""
         return f"sip:{self.user}@{self.host}"
 
 
 @dc.dataclass
 class PhoneConfig:
+    """What redemptions go to what Destination"""
+
     # Maps a destination from twitch.redemptions to a Destination
     destinations: dict[str, Destination]
 
