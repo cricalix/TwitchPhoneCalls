@@ -1,0 +1,98 @@
+###############################################################################
+# TTStreamBot configuration
+#
+# Four sections are required, even if they're empty.
+# * [baresip]
+# * [festival]
+# * [phone]
+# * [twitch]
+#
+# [baresip] configures how the bot works with the baresip CLI
+# [festival] configures stretch, voices, and voice overrides (per chat handle)
+# [phone] maps redemption names to SIP destinations
+# [twitch] configures the Twitch API with credentials etcetera
+###############################################################################
+
+[baresip]
+# Optional, defaulted in code
+# Where to store the baresip configuration data (accounts, config etcetera).
+# config_dir = "/home/username/.config/ttstreambot"
+
+[festival]
+# Optional, defaulted in code.
+# 
+# Play at Festival's default speed. Default.
+# base_stretch = 1.0
+#
+# Speed the voice up
+# base_stretch = 0.5
+#
+# Slow the voice down
+# base_stretch = 1.5
+
+# Mandatory.
+# The voices configuration specifies what voices are loaded, and
+# whether they have a custom stretch value.
+#
+# To load a single voice, using the default stretch (or base_stretch if set)
+# voices = [ { name = "kal_diphone" } ]
+#
+# To load a single voice, with a custom stretch
+# voices = [ { name = "us1_mbrola", stretch = 0.6 } ]
+#
+# To load multiple voices, one at the base/default speed, one faster, one slower
+# voices = [
+#     { name = "kal_diphone" },
+#     { name = "us1_mbrola", stretch = 0.6 },
+#     { name = "rab_diphone", stretch = 1.6 },
+# ]
+voices = []
+
+# Mandatory.
+# Override voice auto-mapping from the hashring. Voice must be in festival->voices.
+# As with <voices>, the stretch value is optional.
+# voices_override = { 
+#   "username_one" = { name = "voice" }
+#   "username_two" = { name = "voice", stretch = 1.2 }
+# }
+voices_override = {}
+
+# Optional, defaulted in code.
+# Voice selection methodology.
+#
+# To use the hashring approach (consistent mapping of handles to voices). Default.
+# selection = hashed
+#
+# To use random selection every time for every redemption. voices_override still
+# applies.
+# selection = random
+
+[phone]
+# Mandatory.
+# The <destinations> configuration item maps the string name of a redemption as
+# provided by the Twitch PubSub to the SIP destination. The bot is written to use
+# direct IP delivery, rather than use registration against a SIP server.
+#
+# The <host> parameter can be an IP address or a hostname.
+#
+# A redemption can only be sent to one destination.
+#
+# Send redemptions for "redemption song" to sip:bob@192.168.0.2
+# destinations = { "redemption song" = { user = "bob", host = "192.168.0.2" } }
+#
+# Send redemptions for "redemption song" to sip:bob@spa2000.local
+# destinations = { "redemption song" = { user = "bob", host = "spa2000.local" } }
+destinations = {}
+
+[twitch]
+# Mandatory.
+# The Twitch-supplied client ID from the registration of an Application on your account.
+# client_id = ""
+
+# Mandatory.
+# The Twitch-supplied client secret from the registration of an Application on your account.
+# client_secret = ""
+
+# Mandatory.
+# Your login username/handle for Twitch.
+# username = ""

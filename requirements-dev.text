@@ -1,0 +1,8 @@
+# Load requirements.txt too
+-r requirements.txt
+# All the devtools for code format, linting etcetera
+black
+flake8
+isort
+mypy
+types-toml
