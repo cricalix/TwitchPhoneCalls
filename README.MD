@@ -43,14 +43,6 @@ You will need
 - FFmpeg
 - baresip
 
-## Application registration
-
-- Go to https://dev.twitch.tv/console
-- Register an application
-- The URL is `http://localhost:17563`; ignore the instructions to use port 3000
-- Generate a secret, making a note of the secret and the client ID.
-- Save the application
-
 # Software
 
 ## Ubuntu packages

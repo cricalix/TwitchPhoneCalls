@@ -35,13 +35,17 @@ Play a sample
 
     (SayText "Daisy, Daisy, this is Twitch Chat calling")
 
+Close Festival
+
+    (quit)
+
 Make a note of which voices you want to use. You'll need a minimum of one voice.
 
 Additional voices are available; on Ubuntu the package names start with `festvox-`.
 
 ## Creating the configuration file
 
-Run the bot program. It'll create the configuration file for you.
+Run the bot program. It'll create the configuration file for you on the first run.
 
 ```bash
 python bot.py
@@ -49,20 +53,57 @@ python bot.py
 Default configuration created at /home/$USER/.config/ttstreambot/ttstreambot.toml; please edit it and re-run the bot.
 ```
 
+## Application registration
+
+- Go to https://dev.twitch.tv/console
+- Register an application
+- The URL is `http://localhost:17563`; ignore the instructions to use port 3000
+- Generate a secret, making a note of the secret and the client ID.
+- Save the application
+
+## Configure the bot
+
 Edit `$HOME/.config/ttstreambot.toml`.
 
 * Uncomment the `client_id`, `client_secret`, `username` items in `[twitch]` and fill them in.
 * Set up the `voices` item in `[festival]` based on the voice list you got from Festival earlier. 
 * Set up the `destinations` item in `[phone]`.
 
-## Running the bot
+## Running the bot (testing)
+
+If you want to test that the SIP side works, use the `--test-baresip` argument to the program.
+
+This loads `redemption.json`, and calls the function that
+
+* checks if the redemption is valid (from the **ttstreambot.toml** `[phone]` destinations),
+* picks a voice to use based on the **user** `display_name` in the JSON,
+* tells baresip to call the relevant destination,
+* plays the generated WAV file to the destination phone
+
+The program will exit when it has finished playing the audio file.
+
+## Running the bot (production)
 
 ```bash
 source ~/venvs/ttstreambot/bin/activate
 python3 bot.py
 ```
 
-The bot will authenticate to Twitch with the credentials provided, and open a browser window for you to authenticate the bot's access to your account. Once authenticated, it will connected to Twitch's PubSub and start listening for redemption events.
+The bot will 
+
+* authenticate to Twitch with the credentials provided, 
+* open a browser window for you to authenticate the bot's access to your account,
+* connect to Twitch's PubSub,
+* start listening for redemption events.
+
+On receiving a redemption event, the bot calls the relevant callback which
+
+* checks if the redemption is valid (from the **ttstreambot.toml** `[phone]` destinations),
+* picks a voice to use based on the **user** `display_name` in the JSON,
+* tells baresip to call the relevant destination,
+* plays the generated WAV file to the destination phone
+
+The bot will then sit waiting for the next redemption event.
 
 > **Note**
 >
