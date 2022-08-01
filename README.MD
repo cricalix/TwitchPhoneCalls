@@ -12,6 +12,17 @@ Required software (outside of Python modules)
  - `Festival` for TTS
  - `ffmpeg` for converting audio files
 
+## Features
+* toml-driven configuration file
+* automatic creation of sample config file in ~/.config/ttstreambot
+* automatic creation of baresip configuration in ~/.config/ttstreambot
+* multiple voices supported
+* speed control per voice
+* random or hashed voice selection
+* overrides of voice per Twitch username, with speed control (overrides random and hashed selection)
+* different destinations (sip:user@host) per redemption
+* optional replacement of underscores in usernames for better speech
+
 # Hardware
 
 You will need
