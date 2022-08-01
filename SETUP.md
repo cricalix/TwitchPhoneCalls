@@ -48,7 +48,7 @@ python bot.py
 Default configuration created at /home/$USER/.config/ttstreambot/ttstreambot.toml; please edit it and re-run the bot.
 ```
 
-Edit `$HOME/ttstreambot.toml`.
+Edit `$HOME/.config/ttstreambot.toml`.
 
 * Uncomment the `client_id`, `client_secret`, `username` items in `[twitch]` and fill them in.
 * Set up the `voices` item in `[festival]` based on the voice list you got from Festival earlier. 
