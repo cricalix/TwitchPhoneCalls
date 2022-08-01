@@ -1,0 +1,6 @@
+[flake8]
+ignore = 
+	# Ignore E501 (line length) because black is a bit more tolerant
+	E501
+
+exclude = .git, __pycache__
