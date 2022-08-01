@@ -69,18 +69,26 @@ def default_files(config_dir: str) -> None:
 
 @click.command()
 @click.option(
+    "--baresip-debug",
+    is_flag=True,
+    default=False,
+    help="Enable baresip debug output",
+)
+@click.option(
     "-c",
     "--config-dir",
     type=click.Path(),
     help="The configuration directory to use; will be auto-created if it doesn't exist",
     required=True,
     default=os.path.expanduser("~/.config/ttstreambot"),
+    show_default=True,
 )
 @click.option(
-    "--baresip-debug", is_flag=True, default=False, help="Enable baresip debug logs"
-)
-@click.option(
-    "-l", "--log-level", type=LogLevel(), default=logging.INFO, help="Log level to use"
+    "-l",
+    "--log-level",
+    type=LogLevel(),
+    default=logging.INFO,
+    help="Log level to use [default: INFO]",
 )
 @click.option(
     "--test-baresip",
