@@ -113,15 +113,19 @@ class FestivalConfig:
 class Destination:
     """Defines a destination for SIP usage"""
 
-    # Hostname (fully qualified) or IP address to send the SIP call to
-    host: str
     # Username at the host that should receive the call.
     user: str
+
+    # Hostname (fully qualified) or IP address to send the SIP call to
+    host: str
+
+    # Port number that the remote SIP endpoint listens on
+    port: int | None = 5060
 
     @property
     def sip(self) -> str:
         """Build a sip address for this destination"""
-        return f"sip:{self.user}@{self.host}"
+        return f"sip:{self.user}@{self.host}:{self.port}"
 
 
 @dc.dataclass

@@ -87,6 +87,9 @@ voices_override = {}
 #
 # Send redemptions for "redemption song" to sip:bob@spa2000.local
 # destinations = { "redemption song" = { user = "bob", host = "spa2000.local" } }
+#
+# Send redemptions for "redemption song" to sip:bob@spa2000.local:5061
+# destinations = { "redemption song" = { user = "bob", host = "spa2000.local", port = 5061 } }
 destinations = {}
 
 [twitch]
